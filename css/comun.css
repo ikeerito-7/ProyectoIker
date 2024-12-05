@@ -10,6 +10,19 @@
     --clr-red: #961818;
 }
 
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 1rem;
+    background-color: var(--clr-main);
+}
+
+
+
+
+
 * {
     margin: 0;
     padding: 0;
@@ -20,6 +33,7 @@
 html {
     /* Valor por defecto */
     font-size: 16px;
+    height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6, p, a, input, textarea, ul{
