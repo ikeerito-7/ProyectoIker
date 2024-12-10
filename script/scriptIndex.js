@@ -10,22 +10,26 @@ document.addEventListener("DOMContentLoaded", () => {
     function validarNombre() {
         const nombre = nombreInput.value.trim();
         const nombreRegex = /^[a-zA-ZÁÉÍÓÚÜÑáéíóúüñ\s]{1,20}$/;
-
+    
         if (nombre === "") {
+            errorNombre.style.display = "block";
             errorNombre.textContent = "Nombre obligatorio.";
             return false;
-        } else if (!nombreRegex.test(nombre)) {
+        } else if (nombre.length > 20) {
+            errorNombre.style.display = "block";
+            errorNombre.textContent = "El nombre no puede tener más de 20 caracteres.";
+            return false;
+        } else if (!nombreRegex.test(nombre)) { 
+            errorNombre.style.display = "block";
             errorNombre.textContent = "Nombre inválido.";
             return false;
-        } else if (nombre.length > 20) {
-            errorNombre.textContent = "El nombre no puede tener más de 20 caracteres.";
-            errorNombre.style.display = "block";
-            return false;
         }
+    
+        errorNombre.style.display = "none";
         errorNombre.textContent = "";
         return true;
     }
-
+    
 
     function validarPassword() {
         const password = passwordInput.value.trim();
