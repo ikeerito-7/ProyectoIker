@@ -30,15 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `;
             productosContainer.innerHTML += productoHTML;
         });
-    }
-<<<<<<< HEAD
+    };
 });
-=======
+
     
-});
-
-
-
-
-
->>>>>>> 6cefd6d (Guardar cambios locales)
