@@ -1,66 +1,99 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const productosContainer = document.getElementById("contenedor-productos");
+    let carrito = JSON.parse(localStorage.getItem("carrito")) || []; // Recuperar carrito de localStorage
+    const contenedorProductosCarrito = document.getElementById("carrito-productos");
+    const mensajeCarritoVacio = document.getElementById("carrito-vacio");
+    const totalCarrito = document.getElementById("Total");
+    const vaciarCarritoBtn = document.querySelector(".carrito-acciones-vaciar");
+    const comprarAhoraBtn = document.querySelector(".carrito-acciones-comprar");
+    const contadorCarrito = document.getElementById("numerito");
 
-    // Cargar productos desde productos.json
-    fetch("./js/productos.json")
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error("Error al cargar el archivo JSON");
-            }
-            return response.json();
-        })
-        .then((productos) => {
-            mostrarProductos(productos);
-        })
-        .catch((error) => console.error("Error al cargar los productos:", error));
+    // Mostrar productos en el carrito
+    const actualizarCarrito = () => {
+        contenedorProductosCarrito.innerHTML = "";
+        mensajeCarritoVacio.style.display = carrito.length === 0 ? "block" : "none";
 
-    // Función para mostrar productos
-    function mostrarProductos(productos) {
-        productosContainer.innerHTML = ""; // Limpiar contenedor
-        productos.forEach((producto) => {
-            const productoHTML = `
-                     <div class="carrito-producto">
-                        <img class="carrito-producto-imagen" src="${carrito-producto-imagen}" alt="${carrito-producto-titulo}">
-                        <div class="carrito-producto-titulo">
-                            <small>${carrito-producto-titulo}</small>
-                            <h3>Portatil 01</h3>
-                        </div>
-                        <div class="carrito-producto-cantidad">
-                            <small>${carrito-producto-cantidad}</small>
-                            <p>1</p>
-                        </div>
-                        <div class="carrito-producto-precio">
-                            <small>${carrito-producto-precio}</small>
-                            <p>$1000</p>
-                        </div>
-                        <div class="carrito-producto-subtotal">
-                            <small>${carrito-producto-subtotal}</small>
-                            <p>$1000</p>
-                        </div>
-                        <button class="carrito-producto-eliminar"><i class="bi bi-trash-fill"></i></button>
-                    </div>
+        let total = 0;
+        carrito.forEach(({ id, titulo, precio, cantidad, imagen }) => {
+            const subtotal = precio * cantidad;
+            total += subtotal;
 
-                    <div id="carrito-acciones" class="carrito-acciones">
-                        <div class="carrito-acciones-izquierda">
-                            <button class="carrito-acciones-vaciar">${carrito-acciones-vaciar}</button>
-                        </div>
-
-                        <div class="carrito-acciones-derecha">
-                            <div class="carrito-acciones-total">
-                                <p>${carrito-acciones-total}</p>
-                                <p id="Total">$3000</p>
-                            </div>
-                            <button class="carrito-acciones-comprar">${carrito-acciones-comprar}</button>
-                        </div>
-                    </div>
+            const productoHTML = document.createElement("div");
+            productoHTML.classList.add("carrito-producto");
+            productoHTML.innerHTML = `
+                <img class="carrito-producto-imagen" src="${imagen}" alt="${titulo}">
+                <div class="carrito-producto-titulo">
+                    <small>Título</small>
+                    <h3>${titulo}</h3>
+                </div>
+                <div class="carrito-producto-cantidad">
+                    <small>Cantidad</small>
+                    <p>${cantidad}</p>
+                </div>
+                <div class="carrito-producto-precio">
+                    <small>Precio</small>
+                    <p>$${precio}</p>
+                </div>
+                <div class="carrito-producto-subtotal">
+                    <small>Subtotal</small>
+                    <p>$${subtotal}</p>
+                </div>
+                <button class="carrito-producto-eliminar" data-id="${id}"><i class="bi bi-trash-fill"></i></button>
             `;
-            productosContainer.innerHTML += productoHTML;
+            contenedorProductosCarrito.appendChild(productoHTML);
         });
-    }
-    
+
+        totalCarrito.textContent = `$${total}`;
+        contadorCarrito.textContent = carrito.reduce((total, item) => total + item.cantidad, 0);
+        configurarBotonesEliminar();
+    };
+
+    // Configurar botones "Eliminar"
+    const configurarBotonesEliminar = () => {
+        const botonesEliminar = document.querySelectorAll(".carrito-producto-eliminar");
+        botonesEliminar.forEach((boton) => {
+            boton.addEventListener("click", () => {
+                const idProducto = boton.dataset.id;
+                eliminarProducto(idProducto);
+            });
+        });
+    };
+
+    // Eliminar un producto del carrito
+    const eliminarProducto = (idProducto) => {
+        carrito = carrito.filter((producto) => producto.id !== idProducto);
+        guardarCarrito();
+        actualizarCarrito();
+    };
+
+    // Vaciar carrito
+    vaciarCarritoBtn.addEventListener("click", () => {
+        carrito = [];
+        guardarCarrito();
+        actualizarCarrito();
+    });
+
+    // Comprar ahora
+    comprarAhoraBtn.addEventListener("click", () => {
+        const total = carrito.reduce((acum, item) => acum + item.cantidad * item.precio, 0);
+        if (carrito.length > 0) {
+            alert(`¿Estás seguro que quieres comprar por un total de $${total}?`);
+            carrito = [];
+            guardarCarrito();
+            actualizarCarrito();
+        } else {
+            alert("Tu carrito está vacío.");
+        }
+    });
+
+    // Guardar carrito en localStorage
+    const guardarCarrito = () => {
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+    };
+
+    // Inicializar carrito
+    const iniciarCarrito = () => {
+        actualizarCarrito();
+    };
+
+    iniciarCarrito();
 });
-
-
-
-
-
