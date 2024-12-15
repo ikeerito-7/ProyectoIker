@@ -26,6 +26,10 @@ main {
     margin: 2rem;
 }
 
+.logo {
+    color: var(--clr-white);
+}
+
 .titulo-principal {
     font-size: 1.5rem;
     font-weight: bold;
@@ -35,7 +39,7 @@ main {
 
 .contenedor-productos {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); /* Ajustable */
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
     gap: 2rem;
 }
 
@@ -129,11 +133,6 @@ aside .menu{
     width: 100%;
 }
 
-.close-menu {
-    display: none;
-    margin: 0;
-    padding: 0;
-}
 
 .menu {
     list-style: none;
@@ -166,6 +165,7 @@ aside .menu{
     font-weight: bold;
     border-radius: 1rem;
     margin: 1rem;
+    margin-top: 5rem;
 }
 
 .bi-hand-index-thumb-fill{
@@ -236,60 +236,435 @@ footer {
     color: var(--clr-main-light);
     margin-top: 10rem;
     width: 100%;
-}footer {
-    text-align: left;
-    font-size: 1rem;
-    color: var(--clr-main-light);
-    margin-top: 10rem;
-    width: 100%;
 }
 
-@media (max-width: 850px) {
+
+@media(max-width: 850px) {
     .contenedor {
         flex-wrap: wrap; /* Cambiar a flujo vertical */
     }
-    aside {
-        width: 25%; /* Reducir ancho */
-    }
+
+    /* Ajustes en el contenedor de productos */
     .contenedor-productos {
-        grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* Dos columnas para los productos */
+        gap: 1rem; /* Ajustar el espacio entre los productos */
+    }
+
+    .producto {
+        background-color: var(--clr-white);
+        border-radius: 1rem;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.2s;
+
+    }
+
+    .producto-imagen {
+        width: 100%;
+        height: auto; /* Ajustar la altura de la imagen */
+    }
+
+    .producto-detalles {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 1rem;
+        background-color: var(--clr-main);
+        color: var(--clr-white);
+        text-align: left;
+    }
+
+    .producto-titulo {
+        font-size: 1rem; /* Ajustar el tamaño del título */
+    }
+
+    .producto-precio {
+        font-size: 1rem; /* Ajustar el tamaño del precio */
+    }
+
+    .producto-agregar {
+        width: 100%; /* Asegurarse de que el botón de agregar ocupe todo el ancho */
+        font-size: 1rem;
+    }
+
+    .producto-agregar:hover {
+        color: var(--clr-main-light);
+    }
+
+    /* Ajustar el menú lateral */
+    aside {
+        width: 30%; /* Ajustar el ancho del menú lateral */
+    }
+
+    .menu {
+        padding-top: 3rem; /* Ajustar el espacio superior */
+    }
+
+    .boton-menu {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .numerito {
+        font-size: 1rem;
+    }
+
+    .boton-menu.boton-carrito {
+        background-color: var(--clr-white); 
+        color: var(--clr-main);
+        font-weight: bold;
+        border-radius: 1rem;
+        margin: 1rem;
+        margin-top: 7rem;
     }
 }
 
-@media (max-width: 675px) {
+    
+
+@media(max-width: 675px) {
     .contenedor {
-        margin-top: 4rem; /* Asegurar que el contenido no quede debajo del header */
+        flex-wrap: wrap; /* Cambiar a flujo vertical */
     }
 
-    aside {
-        position: fixed;
-        top: 0;
-        left: -100%; /* Oculto fuera de la pantalla */
-        width: 20rem; /* Ancho del menú */
-        height: 100%;
-        background-color: var(--clr-main);
-        color: var(--clr-white);
-        transition: left 0.3s ease; /* Animación suave al abrir/cerrar */
-        z-index: 1000;
+    /* Ajustes en el contenedor de productos */
+    .contenedor-productos {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Dos columnas para los productos */
+        gap: 1rem; /* Ajustar el espacio entre los productos */
+    }
+
+    .producto {
+        background-color: white;
+        border-radius: 1rem;
+        overflow: hidden;
         display: flex;
         flex-direction: column;
-        padding: 2rem 1rem;
+        align-items: center;
+        transition: transform 0.2s;
     }
 
-    aside.menu-activo {
-        left: 0; /* Desplaza el menú dentro de la pantalla */
+    .producto-imagen {
+        width: 100%;
+        height: 8rem;
     }
 
+    .producto-detalles {
+        width: 100%;
+        border-radius: 1rem;
+        background-color: var(--clr-main);
+        color: var(--clr-white);
+        text-align: left;
+    }
+
+    .producto-titulo {
+        font-size: 1rem; /* Ajustar el tamaño del título */
+    }
+
+    .producto-precio {
+        font-size: 1rem; /* Ajustar el tamaño del precio */
+    }
+
+    .producto-agregar {
+        width: 100%; /* Asegurarse de que el botón de agregar ocupe todo el ancho */
+        font-size: 1rem;
+    }
+
+    .producto-agregar:hover {
+        color: var(--clr-main-light);
+    }
+
+    /* Ajustar el menú lateral */
+    aside {
+        width: 35%; /* Ajustar el ancho del menú lateral */
+    }
+
+    .menu {
+        padding-top: 3rem; /* Ajustar el espacio superior */
+    }
+
+    .boton-menu {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .cabecera-aside {
+        font-size: 1.2rem; /* Ajustar tamaño de la cabecera del menú */
+    }
+
+    .numerito {
+        font-size: 1rem;
+    }
+
+    /* Ajuste de los íconos de menú */
     .close-menu {
         background: none;
         border: none;
         font-size: 2rem;
         color: var(--clr-white);
         cursor: pointer;
-        align-self: flex-end;
-        margin-bottom: 1rem;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
     }
 
+    .close-menu i {
+        font-size: 2rem;
+        color: var(--clr-white); /* Color blanco */
+    }
+
+    .close-menu i:hover {
+        color: var(--clr-main); /* Cambio de color al pasar el ratón */
+    }
+}
+
+
+@media(max-width: 600px) {
+    /* Ajustes para el contenedor de productos */
+.contenedor {
+    flex-wrap: wrap; /* Cambiar a flujo vertical */
+}
+
+/* Ajustes en el contenedor de productos */
+.contenedor-productos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas para los productos */
+    gap: 1rem; /* Ajustar el espacio entre los productos */
+}
+
+.producto {
+    background-color: white;
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.producto-imagen {
+    width: 100%;
+    height: 13em;
+}
+
+.producto-detalles {
+    width: 100%;
+    border-radius: 1rem;
+    background-color: var(--clr-main);
+    color: var(--clr-white);
+    text-align: left;
+}
+
+.producto-titulo {
+    font-size: 1rem; /* Ajustar el tamaño del título */
+}
+
+.producto-precio {
+    font-size: 1rem; /* Ajustar el tamaño del precio */
+}
+
+.producto-agregar {
+    width: 100%; /* Asegurarse de que el botón de agregar ocupe todo el ancho */
+    font-size: 1rem;
+}
+
+.producto-agregar:hover {
+    color: var(--clr-main-light);
+}
+
+/* Ajustes para el contenedor del menú lateral */
+aside {
+    width: 0; /* Menú lateral comienza con un ancho de 0 */
+    position: fixed;
+    left: -100%; /* El menú está oculto fuera de la pantalla */
+    height: 100%;
+    background-color: var(--clr-main);
+    color: var(--clr-white);
+    transition: left 0.3s ease, width 0.3s ease; /* Animación suave al abrir/cerrar el menú */
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+aside.menu-activo {
+    left: 0; /* Desplazar el menú dentro de la pantalla */
+    width: 40%; /* El menú ocupará el 40% de la pantalla cuando se abra */
+}
+
+/* Ajuste del botón de abrir/cerrar menú */
+.header-mobile .open-menu {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--clr-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+/* Icono de cierre del menú */
+.close-menu {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--clr-white);
+    cursor: pointer;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.close-menu i {
+    font-size: 2rem;
+    color: var(--clr-white); /* Color blanco */
+}
+
+.close-menu i:hover {
+    color: var(--clr-main-light); /* Cambio de color al pasar el ratón */
+}
+
+/* Ajustar la cabecera del menú lateral */
+.header-mobile {
+    display: none;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--clr-main);
+    color: var(--clr-white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    height: 2rem;
+}
+
+.header-mobile h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.header-mobile .open-menu {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--clr-white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+
+}
+
+@media (max-width: 400px) {
+    .contenedor {
+        flex-wrap: wrap; /* Cambiar a flujo vertical */
+    }
+
+    /* Ajustes para el contenedor de productos */
+    .contenedor-productos {
+        display: grid;
+        grid-template-columns: 1fr; /* Una sola columna para los productos */
+        gap: 1.5rem; /* Espacio entre productos */
+    }
+
+    .producto {
+        background-color: var(--clr-white);
+        border-radius: 1rem;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.2s;
+    }
+
+    .producto-imagen {
+        width: 100%;
+        height: 20rem; /* Ajustar la altura de la imagen */
+        border-radius: 1rem;
+    }
+
+    .producto-detalles {
+        width: 100%;
+        padding: 1rem;
+        border-radius: 1rem;
+        background-color: var(--clr-main);
+        color: var(--clr-white);
+        text-align: left;
+    }
+
+    .producto-titulo {
+        font-size: 1rem; /* Ajustar el tamaño del título */
+    }
+
+    .producto-precio {
+        font-size: 1rem; /* Ajustar el tamaño del precio */
+    }
+
+    .producto-agregar {
+        width: 100%; /* Asegurarse de que el botón de agregar ocupe todo el ancho */
+        font-size: 1rem;
+    }
+
+    /* Ajuste del menú lateral */
+    aside {
+        width: 0; /* Menú lateral comienza con un ancho de 0 */
+        position: fixed;
+        left: -100%; /* El menú está oculto fuera de la pantalla */
+        height: 100%;
+        background-color: var(--clr-main);
+        color: var(--clr-white);
+        transition: left 0.3s ease, width 0.3s ease; /* Animación suave al abrir/cerrar el menú */
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem;
+        overflow-y: auto;
+    }
+    
+    aside.menu-activo {
+        left: 0; /* Desplazar el menú dentro de la pantalla */
+        width: 60%; /* El menú ocupará el 60% de la pantalla cuando se abra */
+    }
+
+    aside .menu{
+        margin-bottom: 2rem;
+    }
+    
+    /* Ajuste del botón de abrir/cerrar menú */
+    .header-mobile .open-menu {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: var(--clr-white);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Icono de cierre del menú */
+    .close-menu {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: var(--clr-white);
+        cursor: pointer;
+        top: 2rem;
+        right: 1rem;
+    }
+    
+    .close-menu i {
+        font-size: 2rem;
+        color: var(--clr-white); /* Color blanco */
+    }
+    
+    .close-menu i:hover {
+        color: var(--clr-main-light); /* Cambio de color al pasar el ratón */
+    }
+    
+    /* Ajustar la cabecera del menú lateral */
     .header-mobile {
         display: none;
         width: 100%;
@@ -300,10 +675,6 @@ footer {
         justify-content: space-between;
         align-items: center;
         position: fixed;
-        top: 0;
-        z-index: 1000;
-        height: 4rem;
-        box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.1);
     }
     
     .header-mobile h1 {
@@ -322,44 +693,5 @@ footer {
     }
 }
 
-@media (max-width: 600px) {
-    .contenedor-productos {
-        grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-    }
 
-    .bi-bi-list{
-        background-color: var(--clr-main);
-        color: var(--clr-gray);
-        border: none;
-    }
-}
-
-@media (max-width: 400px) {
-    .contenedor-productos {
-        grid-template-columns: 1fr; 
-        gap: 1rem;
-    }
-    .producto-imagen {
-        height: 15rem; 
-    }
-    .titulo-principal {
-        font-size: 1.2rem;
-        text-align: center;
-    }
-    .producto-titulo,
-    .producto-precio {
-        font-size: 0.9rem;
-    }
-    .producto-agregar {
-        font-size: 0.8rem;
-    }
-    .bi-bi-list{
-        display: flex;
-        background-color: var(--clr-main);
-        color: var(--clr-gray);
-        border: none;
-        align-items: right;
-        justify-content: right;
-    }
-}
         
